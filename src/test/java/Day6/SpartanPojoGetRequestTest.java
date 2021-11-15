@@ -23,7 +23,7 @@ Response response= given().accept(ContentType.JSON).and().pathParam("id", 15)
         .statusCode(200).extract().response();
 //de serialize --> Json to POJO  (java custom class)
 // 2 different way to do this
-
+SOAP
         Spartan spartan15 = response.as(Spartan.class);
         System.out.println(spartan15);
         System.out.println("spartan15.getID()="+spartan15.getId());
