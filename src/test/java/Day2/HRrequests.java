@@ -7,18 +7,20 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import static io.restassured.RestAssured.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class HRrequests {
 
     @BeforeAll
     public static void init(){
-        RestAssured.baseURI="http://3.94.92.170:8000/ords/hr";
+        baseURI="http://3.94.92.170:8000/ords/hr";
     }
     @DisplayName("Get request to /regions")
     @Test
     public void test(){
 
-        Response response=RestAssured.get("/regions");
+        Response response=get("/regions");
         System.out.println(response.statusCode());
     }
     /* Given accept type is application/json
@@ -31,11 +33,12 @@ public class HRrequests {
     @Test
     public void test1(){
 
-        Response response=RestAssured.get("/regions/2");
-        Assertions.assertEquals(200,response.statusCode());
-        Assertions.assertEquals("application/json",response.contentType());
+        Response response=given().accept(ContentType.JSON).when().
+                get("/regions/2");
+        assertEquals(200,response.statusCode());
+        assertEquals("application/json",response.contentType());
         response.prettyPrint();
-        Assertions.assertEquals(response.body().asString().contains("Americas"),true);
+        assertEquals(response.body().asString().contains("Americas"),true);
     }
 
 
